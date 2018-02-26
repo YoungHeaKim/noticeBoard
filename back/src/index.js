@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-const userRouter = require('./routes/userAuth');
-const uploadRouter = require('./routes/listUpload');
+const userRouter = require('./router/userAuth');
+const uploadRouter = require('./router/listUpload');
 
 const express = require('express');
 const http = require('http');
