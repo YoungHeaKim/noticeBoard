@@ -17,9 +17,13 @@ const User = require('./user/user');
 // 게시판 부분
 const Article = require('./article/article');
 
+// express application
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../uploads')));
 app.use('/uploads', express.static('uploads'));
+
+// ejs 템플릿
+app.set('view engine', 'ejs');
 
 app.use('/user', User);
 
