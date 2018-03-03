@@ -1,0 +1,15 @@
+{
+  "title": {
+    "type": "String",
+    "required": "true"
+  },
+  "writer": {
+    "type": "String",
+    "required": "true"
+  },
+  "description": "String",
+  "published_date": {
+    "type": "Date",
+    "default": "Date.now"
+  }
+}

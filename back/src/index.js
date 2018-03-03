@@ -1,3 +1,5 @@
+import { Mongoose } from 'mongoose';
+
 require('dotenv').config();
 
 const userRouter = require('./router/userAuth');
@@ -15,6 +17,10 @@ app.set('trust proxy');
 
 app.use('/user', userRouter);
 app.use('/posting', uploadRouter);
+
+Mongoose.connect(process.env.MONGO_URI, { useMongoClient: true })
+  .then(() => console.log('Successfully connected to mongodb'))
+  .catch(e => console.log(e));
 
 server.listen(PORT, () => {
   console.log(`Able to connect to ${PORT}`);
