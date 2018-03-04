@@ -38,6 +38,7 @@ const checkAuthenticated = (req, res, next) => {
 
 module.exports = {
   // 미들웨어 리스트
+  corsMiddleware,
   bodyParserJsonMiddleware,
   bodyParserUrlEncodedMiddleware,
   csrfMiddleware,
