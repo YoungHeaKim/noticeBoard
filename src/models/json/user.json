@@ -11,8 +11,9 @@
     "required": "true",
     "trim": "true"
   },
-  "name": {
+  "nickName": {
     "type": "String",
-    "required": "true"
+    "required": "true",
+    "unique": "true"
   }
 }
