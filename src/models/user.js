@@ -15,7 +15,7 @@ userSchema.methods.generateHash = function (password) {
 
 // local과 database에 있는 password 확인
 userSchema.methods.validPassword = function (password) {
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.password);
 }
 
 userSchema.plugin(timestamps);
