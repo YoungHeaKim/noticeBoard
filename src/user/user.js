@@ -91,11 +91,11 @@ router.get('/login', (req, res) => {
   res.render('login.ejs', {message: req.flash('loginMessage') });
 });
 
-router.post('/login', passport.authenticate('login', {
+router.get('/login', passport.authenticate('login', {
   successRedirect : '/article/lists',
   failureRedirect : '/user/login',
   failureFlash : true
-}));
+}), oauthHandler);
 
 // passport local signUp
 passport.use('signup', new LocalStrategy({
@@ -125,11 +125,9 @@ passport.use('signup', new LocalStrategy({
               newUser.nickName = nickName;
 
               newUser.save((err, result) => {
-                if (err) 
-                  console.log('fail')
+                if (err)
                   return done(err);
 
-                console.log('success')                  
                 return done(null, newUser);
               });
             }
@@ -164,16 +162,17 @@ passport.use('signup', new LocalStrategy({
       }
     });
   }));
+
 // 회원가입
 router.get('/register', function(req, res) {
   res.render('register.ejs', { message: req.flash('signupMessage') });
 })
 
-router.post('/register', passport.authenticate('signup', {
+router.get('/register', passport.authenticate('signup', {
   successRedirect: '/user/login',
   failureRedirect: '/user/register',
   failureFlash: true
-}));
+}), oauthHandler);
 
 // router.post('/register', register.try);
 
