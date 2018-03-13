@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Board</title>
+</head>
+<body>
+  <header>
+    Board
+  </header>
+  <main>
+    <div class="button">
+      <a class="btn" href="/article/lists">Back</a>
+    </div>
+
+    <form class="post" action="/alticle/lists/<%= alticle._id %>?_method=put" method="post">
+      <div>
+        <h3>Edit Post</h3>
+
+        <fieldset>
+          <div class="<%= (errors.title)?'has-error':'' %>">
+            <label for="title">Title</label>
+            <div>
+              <input type="text" id="title" name="title" value="<%= alticle.title %>">
+              <% if(errors.title){ %>
+                <span class="help-block">
+                  <%= errors.title.message %>
+                </span>
+                <% } %>
+            </div>
+          </div>
+
+          <div class="<%= (errors.description)?'has-error':'' %>">
+            <label for="description">Description</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="description" name="description" rows="5"><%= alticle.description %></textarea>
+              <% if(errors.description){ %>
+                <span class="help-block">
+                  <%= errors.description.message %>
+                </span>
+                <% } %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="btn">Submit</button>
+      </div>
+      <% if(errors.unhandled){ %>
+        <div class="alert">
+          <%= errors.unhandled %>
+        </div>
+        <% } %>
+    </form>
+  </main>
+
+</body>
+</html>

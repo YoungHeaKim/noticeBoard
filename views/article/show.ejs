@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Boards</title>
+</head>
+<body>
+  <header>
+    Board
+  </header>
+
+  <div class="buttons">
+    <a class="btn" href="/alticle/lists">Back</a>
+    <% if(isAuthenticated && alticle.writer && currentUser.id == alticle.writer.id){ %>
+      <a class="btn" href="/alticle/list/<%= alticle._id %>/edit">Edit</a>
+      <form action="/posts/<%= post._id %>?_method=delete" method="post">
+        <a class="btn" href="#" onclick="confirm('해당 글을 지우시겠습니까?')?this.parentElement.submit():null;">Delete</a>
+      </form>
+      <% } %>
+  </div>
+
+  <div >
+    <h3>
+      <%= alticle.title %>
+    </h3>
+    <div>
+      <div>
+        <div class="post-info">
+          <div>
+            <span>Writer</span> :
+            <%= alticle.writer ? alticle.writer.username : "" %>
+          </div>
+          <div>
+            <span>Created</span> :
+            <%= alticle.createdDate %>
+              <%= alticle.createdTime %>
+          </div>
+          <% if(alticle.updatedAt) { %>
+            <div>
+              <span>Updated</span> :
+              <%= alticle.updatedDate %>
+                <%= alticle.updatedTime %>
+            </div>
+            <% } %>
+        </div>
+      </div>
+      
+      <div>
+        <div>
+          <%= alticle.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
