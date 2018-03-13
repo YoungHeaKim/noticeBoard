@@ -5,9 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const flash = require('connect-flash');
 const User = require('../models/user');
+const util = require('../util');
 
-// 컨트롤러를 통해서 실행해
-// const register = require('./user.register.controller');
 const mw = require('../middleware');
 const query = require('../Query');
 
@@ -20,9 +19,6 @@ router.use(mw.bodyParserJsonMiddleware);
 router.use(mw.bodyParserUrlEncodedMiddleware);
 router.use(mw.corsMiddleware);
 router.use(mw.cookieSessionMiddleware);
-// router.use(mw.csrfMiddleware);
-// router.use(mw.insertToken);
-
 
 // passport 초기화
 router.use(passport.initialize());
@@ -87,15 +83,15 @@ function(req, email, password, done) {
 }));
 
 // 로그인
-router.get('/login', (req, res) => {
-  res.render('login.ejs', {message: req.flash('loginMessage') });
-});
+router.get('/login', util.isLoggedin, (req, res) => {
+  res.render('login/login.ejs', {message: req.flash('loginMessage') });
+}, oauthHandler);
 
-router.get('/login', passport.authenticate('login', {
+router.post('/login', passport.authenticate('login', {
   successRedirect : '/article/lists',
   failureRedirect : '/user/login',
   failureFlash : true
-}), oauthHandler);
+}));
 
 // passport local signUp
 passport.use('signup', new LocalStrategy({
@@ -122,7 +118,7 @@ passport.use('signup', new LocalStrategy({
 
               newUser.email = email;
               newUser.password = newUser.generateHash(password);
-              newUser.nickName = nickName;
+              newUser.username = req.body.username;
 
               newUser.save((err, result) => {
                 if (err)
@@ -133,9 +129,7 @@ passport.use('signup', new LocalStrategy({
             }
           })
       } else if (!req.user.email) {
-        query.findByIdInLocal({ 'email': email })
-          .then(
-            function (err, user) {
+        User.findOne({ 'email': email }, function (err, user) {
               if (err) {
                 return done(err);
               }
@@ -147,7 +141,7 @@ passport.use('signup', new LocalStrategy({
 
                 user.email = email;
                 user.password = user.generateHash(password);
-                user.nickName = nickName;
+                user.username = req.body.username;
                 user.save(function(err) {
                   if (err) {
                     return done(err);
@@ -165,14 +159,14 @@ passport.use('signup', new LocalStrategy({
 
 // 회원가입
 router.get('/register', function(req, res) {
-  res.render('register.ejs', { message: req.flash('signupMessage') });
-})
+  res.render('login/register.ejs', { message: req.flash('signupMessage') });
+}, oauthHandler)
 
-router.get('/register', passport.authenticate('signup', {
+router.post('/register', passport.authenticate('signup', {
   successRedirect: '/user/login',
   failureRedirect: '/user/register',
   failureFlash: true
-}), oauthHandler);
+}));
 
 // router.post('/register', register.try);
 
