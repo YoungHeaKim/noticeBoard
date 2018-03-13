@@ -17,8 +17,6 @@ const jwtMiddleware = expressJwt({
   secret: process.env.SECRET
 });
 
-const csrfMiddleware = csurf();
-
 const cookieSessionMiddleware = cookieSession({
   name: 'test-board',
   keys: [
@@ -29,16 +27,17 @@ const cookieSessionMiddleware = cookieSession({
   }
 });
 
-const insertToken = (req, res, next) => {
-  res.locals.csrfToken = req.csrfToken();
-  next();
-};
-
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   }
   res.redirect('/user/login');
+};
+
+const localAuthenticated = function (req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.currentUser = req.user;
+  next();
 };
 
 module.exports = {
@@ -47,8 +46,7 @@ module.exports = {
   corsMiddleware,
   bodyParserJsonMiddleware,
   bodyParserUrlEncodedMiddleware,
-  csrfMiddleware,
   cookieSessionMiddleware,
-  insertToken,
-  checkAuthenticated
+  checkAuthenticated,
+  localAuthenticated
 };
