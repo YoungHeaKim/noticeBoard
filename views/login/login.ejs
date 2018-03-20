@@ -9,22 +9,19 @@
     <div>
       <h1>Login</h1>
 
-      <% if (message.length > 0) { %>
-        <div class="alert alert-danger">
-          <%= message %>
-        </div>
-      <% } %>
-
-      <form action="/user/login" method="post">
+      <form action="/user/cookie" method="post">
         <div>
           <label>Email</label>
-          <input type="text" name="email">
+          <input type="text" name="email" required="true">
         </div>
         <div>
           <label>Password</label>
-          <input type="password" name="password">
+          <input type="password" name="password" required="true">
         </div>
-        <button type="submit">Login</button>
+        
+        <div class="buttons">
+          <input type="submit" value="Log-In">
+        </div>
       </form>
 
       <p>

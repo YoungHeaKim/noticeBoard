@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <title>Register</title>
+</head>
+
+<body>
+  <div>
+    <div>
+      <h1>Edit User</h1>
+
+      <form action="/user/edit" method="put">
+        <div>
+          <label for="currentPassword">Current Password*</label>
+          <input type="password" id="currentPassword" name="currentPassword" value="">
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <div>
+          <label>Username</label>
+          <input type="text" name="username">
+        </div>
+
+        <button type="submit">Edit</button>
+      </form>
+
+      <hr>
+      <p>
+        수정하고 싶지않으신 분들은 여기를 눌러주세요.
+        <a href="/alticle/lists">돌아가기</a>
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>
