@@ -25,21 +25,6 @@ util.getTime = function (dateObj) {
     return get2digits(dateObj.getHours()) + ":" + get2digits(dateObj.getMinutes()) + ":" + get2digits(dateObj.getSeconds());
 }
 
-util.isLoggedin = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    req.flash("errors", { login: "로그인을 먼저 해주세요." });
-    res.redirect("/user/login");
-  }
-}
-
-util.noPermission = function (req, res) {
-  req.flash("errors", { login: "접근 권한이 없습니다." });
-  req.logout();
-  res.redirect("/user/login");
-}
-
 module.exports = util;
 
 // private functions
