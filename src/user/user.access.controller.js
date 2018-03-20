@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 exports.accessChecker = (req, res, next) => {
-  console.log(req.cookies);
   if(req.cookies === undefined) {
     return res.redirect('/user/login');
   }

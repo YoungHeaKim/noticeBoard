@@ -11,14 +11,12 @@ const query = require('../Query/index');
 // passport serialize
 passport.serializeUser((user, done) => {
   console.log('serialize');
-  console.log(user);
   done(null, user);
 });
 
 // passport deserialize
 passport.deserializeUser((user, done) => {
   console.log('deserialize');
-  console.log(user);
   done(null, user);
 });
 
@@ -28,7 +26,6 @@ passport.use('sign-in', new LocalStrategy({
   passwordField: 'password'
 }, async (email, password, done) => {
   const checkUser = await User.findOne({ email: email });
-  console.log(email, password, checkUser);
   (checkUser && bcrypt.compareSync(password, checkUser.password)) ? done(null, checkUser) : done(null, false);
 }));
 
