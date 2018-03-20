@@ -8,16 +8,6 @@ const Schema = mongoose.Schema;
 const userJson = require('./json/user.json');
 const userSchema = Schema(userJson);
 
-// hash로 password 변환
-userSchema.methods.generateHash = function (password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
-
-// local과 database에 있는 password 확인
-userSchema.methods.validPassword = function (password) {
-  return bcrypt.compareSync(password, this.password);
-}
-
 userSchema.plugin(timestamps);
 userSchema.plugin(paginate);
 
