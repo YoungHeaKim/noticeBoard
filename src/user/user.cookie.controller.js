@@ -35,8 +35,6 @@ passport.use('sign-in', new LocalStrategy({
 // 로그인시 쿠키 생성하는 부분
 exports.cookie = (req, res) => {
   passport.authenticate('sign-in', (err, user) => {
-    console.log(user);
-    console.log(err);
     const token = jwt.sign({
       id: user._id,
       expiresIn: '10h'
