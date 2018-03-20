@@ -17,19 +17,20 @@ global.db = mongoose.createConnection(process.env.MONGO_URI);
 const User = require('./user/user');
 // 게시판 부분
 const Article = require('./article/article');
+// cookie체크부분
+const checker = require('./user/user.access.controller');
+
 
 // ejs 템플릿
 app.set('view engine', 'ejs');
 
 // express application
-app.use(express.static(path.join(__dirname, '../uploads')));
-app.use(morgan('dev'));
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/uploads', express.static('uploads'));
+app.use(cookieParser());
+app.use(morgan('dev'));
 app.use('/user', User);
-app.use('/article', Article);
+app.use('/article', checker.accessChecker, Article);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to mongodb'))
