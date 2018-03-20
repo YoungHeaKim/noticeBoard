@@ -63,7 +63,7 @@ exports.edit = async (req, res) => {
   }
 
   // 확인이 완료된 userInfo를 데이터베이스에 생성하는 부분
-  const updateUser = User.update({
+  const updateUser = await User.update({
     email: userInfo.email
   }, {
       password: userInfo.password,
