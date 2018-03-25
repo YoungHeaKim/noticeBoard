@@ -19,6 +19,11 @@ router.get('/lists', getting.mainPage);
 // 게시글 보기
 router.get('/lists/:article_id', getting.article);
 
+// 게시글 수정하는 페이지
+router.get('/edit/:article_id', (req, res) => {
+  res.render(path.join(__dirname, '../../views/article/edit.ejs'));
+});
+
 // 새로운 리스트를 만드는 부분
 router.post('/new', posting.createList);
 
