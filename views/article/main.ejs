@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Test_Board</title>
+</head>
+<body>
+  <header>
+    <h1>Test_Board</h1>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/user/edit">User 수정</a>
+        </li>
+        <li>
+          <a href="/user/logout">Logout</a>
+        </li>
+    </ul>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th class="title">Title</th>
+          <th class="description">Description</th>
+          <th class="writer">Writer</th>
+          <th class="date">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(articles == null || articles.length == 0) { %>
+          <tr>
+            <td colspan=100>Article이 없습니다.</td>
+          </tr>
+        <% } %>
+        <% articles.forEach( (article) => { %>
+          <tr>
+            <td class="title">
+              <a href="/article/lists/:article_id"><%= article.title %></a>
+            </td>
+            <td class="description">
+              <%= article.description %>
+            </td>
+            <td class="writer">
+              <%= article.writer ? article.writer.username : "" %>
+            </td>
+            <td class="date">
+              <%= article.createdDate %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div class="btn">
+      <a href="/article/new" class="btn">새글 등록하기</a>
+    </div>
+  </main>
+</body>
+</html>
