@@ -7,22 +7,25 @@ const revising = require('./article.revise.controller');
 const deleting = require('./article.delete.controller');
 const getting = require('./article.get.controller');
 
-const mw = require('../middleware');
 const query = require('../Query');
 
 const app = express();
 
 const router = express.Router();
 
-// middleware
+// main page에 모든 article을 불러오는 부분
+router.get('/lists', getting.mainPage);
 
+// 게시글 보기
+router.get('/lists/:article_id', getting.article);
 
-router.post('/:uid', upload.single('image'), posting.try);
+// 새로운 리스트를 만드는 부분
+router.post('/new', posting.createList);
 
-router.put('/:article_id', upload.single('image'), revising.try);
+// 수정한 게시글 update
+router.put('/edit/:article_id', revising.edit);
 
-router.delete('/:article_id', deleting.try);
-
-router.get('/:uid', getting.try);
+// 게시글을 삭제하는 부분
+router.delete('/lists/:article_id', deleting.delete);
 
 module.exports = router;
