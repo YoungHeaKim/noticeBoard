@@ -59,7 +59,7 @@ exports.edit = async (req, res) => {
     if(checkUsername) {
       res.status(400).json('닉네임이 이미 존재합니다.')
     }
-    return res.status(200).json('아이디가 없습니다. \'id\' or \'password\'를 체크해주세요')
+    return res.status(400).json('아이디가 없습니다. \'id\' or \'password\'를 체크해주세요')
   }
 
   // 확인이 완료된 userInfo를 데이터베이스에 생성하는 부분
@@ -70,6 +70,6 @@ exports.edit = async (req, res) => {
       username: userInfo.username
     })
   if (updateUser) {
-    return res.status(200).json('성공')
+    return res.status(200).json('성공').redirect('/article/lists')
   }
 }
