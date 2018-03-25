@@ -31,6 +31,10 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use('/user', User);
 app.use('/article', checker.accessChecker, Article);
+// 기본페이지를 리스트페이지로 변환
+app.use('/', (req, res) => {
+  return res.redirect('/article/lists');
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to mongodb'))
