@@ -9,6 +9,7 @@ const app = express();
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const server = http.Server(app);
 global.db = mongoose.createConnection(process.env.MONGO_URI);
@@ -35,6 +36,10 @@ app.use('/article', checker.accessChecker, Article);
 app.use('/', (req, res) => {
   return res.redirect('/article/lists');
 });
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to mongodb'))
