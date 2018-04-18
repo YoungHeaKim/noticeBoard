@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const ms = require('../message');
-const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const query = require('../Query/index');
 
 // passport serialize
 passport.serializeUser((user, done) => {
   console.log('serialize');
+  console.log(user);
   done(null, user);
 });
 
@@ -25,13 +25,14 @@ passport.use('sign-in', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, async (email, password, done) => {
-  const checkUser = await User.findOne({ email: email });
+  console.log('LocalStrategy');
+  const checkUser = await query.checkIdExist(email);
   (checkUser && bcrypt.compareSync(password, checkUser.password)) ? done(null, checkUser) : done(null, false);
 }));
 
 // 로그인시 쿠키 생성하는 부분
 exports.cookie = (req, res) => {
-  passport.authenticate('sign-in', (err, user) => {
+  passport.authenticate('sign-in', (err, user, info) => {
     const token = jwt.sign({
       id: user._id,
       expiresIn: '10h'
@@ -43,6 +44,7 @@ exports.cookie = (req, res) => {
     if (!token) {
       return res.redirect('/user/login');
     }
+    console.log(user);
     return res.cookie('auth', token, { expires: date }).redirect('/article/lists');
   })(req, res);
 };
