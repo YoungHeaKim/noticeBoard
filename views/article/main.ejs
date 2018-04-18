@@ -6,14 +6,16 @@
 <body>
   <header>
     <h1>Test_Board</h1>
-    <ul class="nav navbar-nav navbar-right">
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="/user/edit">User 수정</a>
         </li>
         <li>
           <a href="/user/logout">Logout</a>
         </li>
-    </ul>
+      </ul>
+    </nav>
   </header>
   <main>
     <table>
@@ -40,7 +42,7 @@
               <%= article.description %>
             </td>
             <td class="writer">
-              <%= article.writer ? article.writer.username : "" %>
+              <%= article.writer %>
             </td>
             <td class="date">
               <%= article.createdDate %>

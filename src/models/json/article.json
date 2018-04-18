@@ -3,6 +3,10 @@
     "type": "String",
     "required": "true"
   },
+  "writer": {
+    "type": "String",
+    "required": "true"
+  },
   "description": {
     "type": "String",
     "required": "true"
