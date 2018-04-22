@@ -18,15 +18,15 @@ module.exports = {
       username: data.username
     })
   },
-  updatePasswordAndUsername(data) {
-    return User.update({
-      email: data.email
-    }, {
-      password: data.password,
-      username: data.username
+  updatePasswordAndUsername(userId, data) {
+    return User.findByIdAndUpdate(userId, {
+        email: data.email,
+        password: data.password,
+        username: data.username
     })
   },
   checkUserBy_id(data) {
     return User.findById(data)
   }
+  
 };
