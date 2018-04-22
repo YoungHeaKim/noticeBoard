@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Test_Board</title>
+  <title>Test-Board</title>
 </head>
 <body>
   <header>
-    Board
+    <h1>Test-Board</h1>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/user/edit">User 수정</a>
+        </li>
+        <li>
+          <a href="/user/logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
   </header>
   <main>
     <div class="button">
-      <a href="/ariticle/lists" class="btn">Back</a>
+      <a class="btn" href="/article/lists">Back</a>
     </div>
-
-    <form action="/alticles" method="post">
-      <div class="contentBox">
-        <h3>새로운 글 등록</h3>
+    <form action="/article/new" method="post">
+      <section>
+        <h3>새로운 계시글</h3>
         <fieldset>
-          <div class="<%= (errors.title)?'has-error':'' %>">
-            <label for="title">Title</label>
-            <div>
-              <input class="form-control" type="text" id="title" name="title" value="<%= alticle.title =%>">
-              <% if(errors.title){ %>
-                <span class="help-block">
-                  <%= errors.title.message %>
-                </span>
-              <% } %>
-            </div>
+          <div class="title-section">
+            <label>Title</label>
+            <input type="text" name="title" id="title">
           </div>
-          <div>
-            <label for="body">Description</label>
-            <div>
-              <textarea class="form-control" id="Description" name="Description" rows="5"><%= alticle.description %></textarea>
-              <% if(errors.body){ %>
-                <span class="help-block">
-                  <%= errors.body.message %>
-                </span>
-              <% } %>
-            </div>
+          <div class="description-section">
+            <label>Description</label>
+            <input type="text" name="description" id="description">
           </div>
         </fieldset>
-      </div>
-
+      </section>
       <div class="button">
-        <button type="submit" class="btn">Submit</button>
+        <button type="submit">Submit</button>
       </div>
-      <% if(errors.unhandled){ %>
-        <div class="alert alert-danger">
-          <%= errors.unhandled %>
-        </div>
-      <% } %>
     </form>
   </main>
 </body>
