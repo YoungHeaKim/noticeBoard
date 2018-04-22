@@ -28,27 +28,28 @@
         </tr>
       </thead>
       <tbody>
-        <% if(articles == null || articles.length == 0) { %>
+        <% if(articleList == null || articleList.length == 0) { %>
           <tr>
             <td colspan=100>Article이 없습니다.</td>
           </tr>
         <% } %>
-        <% articles.forEach( (article) => { %>
+        <% for(let idx = 0; idx < articleList.length; idx++) { %>
+          <% let articles = articleList[idx] %>
           <tr>
             <td class="title">
-              <a href="/article/lists/:article_id"><%= article.title %></a>
+              <a href="/article/lists/<%= articles._id %>"><%= articles.title %></a>
             </td>
             <td class="description">
-              <%= article.description %>
+              <%= articles.description %>
             </td>
             <td class="writer">
-              <%= article.writer %>
+              <%= username %>
             </td>
             <td class="date">
-              <%= article.createdDate %>
+              <%= articles.createdDate %>
             </td>
           </tr>
-        <% }) %>
+        <% } %>
       </tbody>
     </table>
     <div class="btn">
