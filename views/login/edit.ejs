@@ -9,20 +9,19 @@
     <div>
       <h1>Edit User</h1>
 
-      <form action="/user/egister" method="put">
+      <form action="/user/edit" method="post">
         <div>
-          <label for="email">Email</label>
-          <input type="email" name="email">
+          <label for="checkPassword">Password</label>
+          <input type="password" name="checkPassword">
         </div>
         <div>
-          <label for="password">Password</label>
-          <input type="password" name="password">
+          <label for="newPassword">새로운 Password</label>
+          <input type="password" name="newPassword">
         </div>
         <div>
-          <label for="username">Username</label>
-          <input type="text" name="username">
+          <label for="newUsername">Username</label>
+          <input type="text" name="newUsername">
         </div>
-
         <button type="submit">Edit</button>
       </form>
 
