@@ -27,6 +27,9 @@ module.exports = {
   },
   checkUserBy_id(data) {
     return User.findById(data)
+  },
+  findUserById(data) {
+    return User.findById(data)
   }
   
 };
