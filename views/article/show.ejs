@@ -1,56 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Boards</title>
+  <title>Test-Board</title>
 </head>
 <body>
   <header>
-    Board
+    <h1>Test-Board</h1>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/user/edit">User 수정</a>
+        </li>
+        <li>
+          <a href="/user/logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
   </header>
-
-  <div class="buttons">
-    <a class="btn" href="/alticle/lists">Back</a>
-    <% if(isAuthenticated && alticle.writer && currentUser.id == alticle.writer.id){ %>
-      <a class="btn" href="/alticle/list/<%= alticle._id %>/edit">Edit</a>
-      <form action="/posts/<%= post._id %>?_method=delete" method="post">
-        <a class="btn" href="#" onclick="confirm('해당 글을 지우시겠습니까?')?this.parentElement.submit():null;">Delete</a>
-      </form>
+  <main>
+    <div class="buttons">
+      <a href="/article/lists">Back</a>
+      <% if(articleList.writer === user._id) { %>
+        <a href="/lists/<%= articles.id %>">수정</a>
+        <form action="/lists/<%= articles.id %>" method="post">
+          <a href="#" onclick="confirm('Do you want to delete this?')?this.parentElement.submit():null;">삭제</a>
+        </form>
       <% } %>
-  </div>
-
-  <div >
-    <h3>
-      <%= alticle.title %>
-    </h3>
-    <div>
-      <div>
-        <div class="post-info">
-          <div>
-            <span>Writer</span> :
-            <%= alticle.writer ? alticle.writer.username : "" %>
-          </div>
-          <div>
-            <span>Created</span> :
-            <%= alticle.createdDate %>
-              <%= alticle.createdTime %>
-          </div>
-          <% if(alticle.updatedAt) { %>
-            <div>
-              <span>Updated</span> :
-              <%= alticle.updatedDate %>
-                <%= alticle.updatedTime %>
-            </div>
-            <% } %>
-        </div>
-      </div>
-      
+    </div>
+    <section>
+      <h2><%= articleList.title %></h2>
       <div>
         <div>
-          <%= alticle.description %>
+          <span>Writer</span> : <%= username %>
         </div>
+        <div>
+          <span>Created</span> :
+          <%= articleList.createdDate %> <%= articleList.createdDate %>
+        </div>
+        <% if(articleList.updatedAt) { %>
+          <div>
+            <span>updated</span> :
+            <%= articleList.updatedAt %> <%= articleList.updatedDate %>
+          </div>
+        <% } %>
       </div>
-    </div>
-  </div>
-  
+      <div>
+        <%= articleList.description %>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
