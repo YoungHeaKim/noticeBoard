@@ -1,7 +1,7 @@
 const { ...AuthQuery } = require('./AuthQuery');
-const { ...BoardQuery } = require('./BoardQuery');
+const { ...ArticleQuery } = require('./ArticleQuery');
 
 module.exports = {
   ...AuthQuery,
-  ...BoardQuery,
+  ...ArticleQuery,
 };
