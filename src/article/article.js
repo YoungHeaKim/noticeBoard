@@ -20,9 +20,7 @@ router.get('/new', (req, res) => {
 })
 
 // 게시글 수정하는 페이지
-router.get('/edit/:_id', (req, res) => {
-  res.render(path.join(__dirname, '../../views/article/edit.ejs'));
-});
+router.get('/edit/:_id', getting.edit);
 
 // main page에 모든 article을 불러오는 부분
 router.get('/lists', getting.mainPage);
@@ -34,9 +32,11 @@ router.get('/lists/:_id', getting.article);
 router.post('/new', posting.createList);
 
 // 수정한 게시글 update
+router.post('/edit/:_id', revising.edit);
 router.put('/edit/:_id', revising.edit);
 
 // 게시글을 삭제하는 부분
+router.post('/lists/:_id', deleting.delete);
 router.delete('/lists/:_id', deleting.delete);
 
 module.exports = router;
