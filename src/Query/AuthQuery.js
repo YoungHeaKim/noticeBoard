@@ -30,6 +30,5 @@ module.exports = {
   },
   findUserById(data) {
     return User.findById(data)
-  }
-  
+  },
 };

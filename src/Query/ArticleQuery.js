@@ -13,5 +13,14 @@ module.exports = {
   },
   findArticleById(data) {
     return Article.findById(data)
+  },
+  updateTitleAndDescription(Id, data) {
+    return Article.findByIdAndUpdate(Id, {
+      title: data.title,
+      description: data.description
+    })
+  },
+  removeArticle(data) {
+    return Article.remove(data)
   }
 };
