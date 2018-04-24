@@ -1,6 +1,5 @@
 const query = require('../Query');
 const ms = require('../message');
-const Article = require('../models/article');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 
@@ -9,15 +8,16 @@ exports.mainPage = async(req, res) => {
   const articleList = await query.findAllArticle();
   // 2. writer에 등록되어 있는 유저id를 통해 유저이름을 찾아서 writer에 넣어줌
   // 이부분 오류 발생(메인페이지에서 배열에 첫번째에서만 user를 찾음)
-  const article = articleList.find((article) => {
-    console.log(article.writer);
+  const article = articleList.map((article) => {
     return article.writer;
   });
-  const writerId = article.writer;
-  const user = await query.findUserById(writerId);
+  for(let i = 0; i < article.length; i++ ) {
+    let writerId = article[i];
+    // console.log(writerId)
+  }
+  const user = await query.findUserById(article);
   const username = user.username;
-  console.log(articleList);
-  console.log(writerId);
+  // console.log(user);
   // 위에서 불러온 정보를 화면에 뿌려준다.
   res.status(200).render((path.join(__dirname, '../../views/article/main.ejs')), {articleList: articleList, username: username});
 };
@@ -34,11 +34,17 @@ exports.article = async (req, res) => {
   const writerId = articleList.writer;
   const userId = await query.findUserById(writerId);
   const username = userId.username;
-  console.log(user._id)
-  console.log(articleList.writer)  
   if(!articleList) {
     console.log('게시글부분 오류')
     res.status(400).json('게시글이 없습니다.')
   }
   res.status(200).render((path.join(__dirname, '../../views/article/show.ejs')), { articleList: articleList, user: user, username: username});
 };
+
+exports.edit = async (req, res) => {
+  const article = await query.findArticleById(req.params._id);
+  if(!article) {
+    res.status(400).json('해당 게시글을 불러 올 수 없습니다.')
+  }
+  res.status(200).render(path.join(__dirname, '../../views/article/edit.ejs'), {article: article});
+}
