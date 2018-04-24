@@ -1,9 +1,8 @@
 const query = require('../Query');
 const ms = require('../message');
-const Article = require('../models/article');
 
 exports.edit = async (req, res) => {
-  const article = await Article.findById(req.params.article_id);
+  const article = await query.findArticleById(req.params._id);
   if(!article) {
     return res.status(400).json('찾으시는 글이 없습니다.')
   }
@@ -13,10 +12,7 @@ exports.edit = async (req, res) => {
     description: req.body.description
   }
 
-  const updateArticle = await Article.update({
-    title: articleEdit.title,
-    description: articleEdit.description
-  })
+  const updateArticle = await query.updateTitleAndDescription(article._id, articleEdit);
 
   if(updateArticle) {
     return res.status(200).json('성공')
