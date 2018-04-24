@@ -44,7 +44,6 @@ exports.cookie = (req, res) => {
     if (!token) {
       return res.redirect('/user/login');
     }
-    console.log(user);
     return res.cookie('auth', token, { expires: date }).redirect('/article/lists');
   })(req, res);
 };
