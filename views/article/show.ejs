@@ -20,10 +20,10 @@
   <main>
     <div class="buttons">
       <a href="/article/lists">Back</a>
-      <% if(articleList.writer === user._id) { %>
-        <a href="/lists/<%= articles.id %>">수정</a>
-        <form action="/lists/<%= articles.id %>" method="post">
-          <a href="#" onclick="confirm('Do you want to delete this?')?this.parentElement.submit():null;">삭제</a>
+      <% if(articleList.writer == user._id) { %>
+        <a href="/article/edit/<%= articleList.id %>">수정</a>
+        <form action="/article/lists/<%= articleList.id %>" method="post">
+          <a href="#" onclick="confirm('정말로 게시글을 지우시겠습니까?')?this.parentElement.submit():null;">삭제</a>
         </form>
       <% } %>
     </div>
@@ -35,12 +35,12 @@
         </div>
         <div>
           <span>Created</span> :
-          <%= articleList.createdDate %> <%= articleList.createdDate %>
+          <%= articleList.createdDate %> <%= articleList.createdTime %>
         </div>
         <% if(articleList.updatedAt) { %>
           <div>
             <span>updated</span> :
-            <%= articleList.updatedAt %> <%= articleList.updatedDate %>
+            <%= articleList.updatedDate %> <%= articleList.updatedTime %>
           </div>
         <% } %>
       </div>
