@@ -1,56 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Board</title>
+  <title>Test-Board</title>
 </head>
 <body>
   <header>
-    Board
+    <h1>Test_Board</h1>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/user/edit">User 수정</a>
+        </li>
+        <li>
+          <a href="/user/logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
   </header>
   <main>
     <div class="button">
       <a class="btn" href="/article/lists">Back</a>
     </div>
-
-    <form class="post" action="/alticle/lists/<%= alticle._id %>?_method=put" method="post">
-      <div>
-        <h3>Edit Post</h3>
-
+    
+    <h3>Edit Post</h3>
+    <form action="/article/edit/<%= article._id %>" method="post">
+      <section>
         <fieldset>
-          <div class="<%= (errors.title)?'has-error':'' %>">
-            <label for="title">Title</label>
-            <div>
-              <input type="text" id="title" name="title" value="<%= alticle.title %>">
-              <% if(errors.title){ %>
-                <span class="help-block">
-                  <%= errors.title.message %>
-                </span>
-                <% } %>
-            </div>
+          <div>
+            <label>Title</label>
+            <input type="text" name="title" id="title" value= <%= article.title %> >
           </div>
-
-          <div class="<%= (errors.description)?'has-error':'' %>">
-            <label for="description">Description</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" id="description" name="description" rows="5"><%= alticle.description %></textarea>
-              <% if(errors.description){ %>
-                <span class="help-block">
-                  <%= errors.description.message %>
-                </span>
-                <% } %>
-            </div>
+          <div>
+            <label>Description</label>
+            <input type="text" name="description" id="description" value= <%= article.description %> >
           </div>
         </fieldset>
-      </div>
-
+      </section>
       <div class="buttons">
         <button type="submit" class="btn">Submit</button>
       </div>
-      <% if(errors.unhandled){ %>
-        <div class="alert">
-          <%= errors.unhandled %>
-        </div>
-        <% } %>
     </form>
   </main>
 
