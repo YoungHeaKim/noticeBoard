@@ -8,8 +8,6 @@ const revising = require('./article.revise.controller');
 const deleting = require('./article.delete.controller');
 const getting = require('./article.get.controller');
 
-const query = require('../Query');
-
 const app = express();
 
 const router = express.Router();
