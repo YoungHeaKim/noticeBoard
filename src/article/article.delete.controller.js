@@ -1,6 +1,5 @@
 const query = require('../Query');
 const ms = require('../message');
-const Article = require('../models/article');
 
 exports.delete = async (req, res) => {
   const article = await query.removeArticle({_id: req.params._id})
