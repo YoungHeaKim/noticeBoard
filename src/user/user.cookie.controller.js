@@ -10,7 +10,6 @@ const query = require('../Query/index');
 // passport serialize
 passport.serializeUser((user, done) => {
   console.log('serialize');
-  console.log(user);
   done(null, user);
 });
 
@@ -40,11 +39,15 @@ exports.cookie = (req, res) => {
     let date = new Date();
     // 토큰 10시간 유지
     date.setTime(date.getTime() + (1000 * 60 * 60 * 10));
-
     if (!token) {
       return res.redirect('/user/login');
     }
-    return res.cookie('auth', token, { expires: date }).redirect('/article/lists');
+    req.logIn(user, (err) => {
+      if(err) {
+        return next();
+      }
+      return res.cookie('auth', token, { expires: date }).redirect('/article/lists');
+    })
   })(req, res);
 };
 
@@ -53,5 +56,7 @@ exports.cookieRemove = (req, res) => {
   const date = new Date();
   // token에 빈 문자열을 넣어주면서 원래있던 토큰 삭제
   const token = "";
+  req.logout();
+  req.session.destroy();
   return res.cookie('auth', token, { expires: date }).redirect('/user/login');
 };
